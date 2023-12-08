@@ -1,0 +1,45 @@
+name: Deploy to Amazon ECR
+
+on:
+  release:
+    types: [created]
+
+env:
+  AWS_REGION: eu-central-1
+  ECR_REPOSITORY: kube_django
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ env.AWS_REGION }}
+
+    - name: Login to Amazon ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v1
+
+    - name: Build, tag, and push image to Amazon ECR
+      run: |
+        # Extract the version number from the release tag
+        VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
+        
+        # Build the docker container
+        docker build -t ${{ env.ECR_REPOSITORY }}:$VERSION .
+        
+        # Tag the image with the version number and push
+        docker tag ${{ env.ECR_REPOSITORY }}:$VERSION ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}:$VERSION
+        docker push ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}:$VERSION
+        
+        # Tag the image with 'latest' and push
+        docker tag ${{ env.ECR_REPOSITORY }}:$VERSION ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}:latest
+        docker push ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}:latest
