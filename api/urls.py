@@ -26,6 +26,7 @@ from drf_yasg import openapi
 from drf_yasg.generators import OpenAPISchemaGenerator
 
 from .views import home
+from coin import urls as coin_urls
 
 
 class BothHttpAndHttpsSchemaGenerator(OpenAPISchemaGenerator):
@@ -53,6 +54,7 @@ schema_view = get_schema_view(
 urlpatterns = [
     # path('prometheus/', include('django_prometheus.urls')),
     path("", home, name='home'),
+    path("coin/", include(coin_urls)),
 
     path('admin/', admin.site.urls),
     path("swagger/", schema_view.with_ui("swagger",
