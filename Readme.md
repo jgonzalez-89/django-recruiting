@@ -1,25 +1,27 @@
+<a href="https://www.gonzalezdiaz.dev/">
+    <img src="https://i.ibb.co/wLhGrwD/screen-intro.png" alt="Pagekit Banner" width="900" height="auto"/>
+</a>
 
-[![Pagekit Banner](https://ksr-ugc.imgix.net/assets/011/705/984/4ea78430d3ad7dc88106a7b973248ba7_original.jpg?ixlib=rb-4.0.2&crop=faces&w=1552&h=873&fit=crop&v=1463687041&auto=format&frame=1&q=92&s=16f9ae9168eecef976e5a19887afb152)](https://www.jgonzalez89.es/)
 
-# Django API
 
-API desarrollada con el framework Django, una herramienta solida que facilita el diseño de aplicaciones web en Python.
+# Django - Recruiting
+
+This recruitment tool allows you to create and customise assessments, monitor candidate progress and obtain detailed reports to make informed decisions.
 
 ---
 
-## Instalación
+## Installation
 
-A continuación, te explicamos cómo instalar y ejecutar el proyecto. Asegúrate de tener todas las dependencias necesarias.
+Here's how to install and run the project. Make sure you have all the necessary dependencies.
 
-```shell
-git clone <https://github.com/jgonzalez89/{tu-proyecto}.git>
-cd tu-proyecto
+```bash
+git clone https://github.com/jgonzalez-89/django-recruiting.git
+cd django-recruiting
 pip install -r requirements.txt
+python manage.py migrate
 python manage.py runserver
-
 ```
 
+## Licence
 
-## Licencia
-
-Este proyecto está licenciado bajo la licencia MIT - vea el archivo [LICENSE](LICENSE) para más detalles.
+This project is licensed under the MIT licence - see the [LICENSE](LICENSE) file for details.
